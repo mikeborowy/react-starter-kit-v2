@@ -1,7 +1,7 @@
 {
-  "name": "react-starter-v4",
+  "name": "react-starter-v2",
   "version": "1.0.0",
-  "description": "",
+  "description": "react starter webpack config",
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel lint:watch serv:src",
