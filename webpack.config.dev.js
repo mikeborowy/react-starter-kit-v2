@@ -3,9 +3,7 @@ const path = require("path");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
-	debug: true,
-	noInfo: false,
-	devTool: 'eval-source-map',
+	devtool: 'source-map',
 	entry: [
 		'webpack-hot-middleware/client',
 		path.join( __dirname, '/src/index.js')
@@ -15,8 +13,8 @@ module.exports = {
 		path: '/'
 	},
 	plugins: [
-		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new OptimizeCssAssetsPlugin({
 			assetNameRegExp: /\.optimize\.css$/g,
@@ -34,11 +32,22 @@ module.exports = {
 		dns: 'empty'
 	},
 	module: {
-		rules: [{
+		rules: [
+			{
+				test: /\.jsx?$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets:['react','es2015']
+					}
+				}
+			},
+			{
 				test: /\.js$/,
 				include: path.join(__dirname, 'src'), 
 				exclude: /(node_modules)/,
-				loaders: ['react-hot', 'babel']
+				loaders: ['react-hot-loader/webpack']
 			},
 			{
 				test: /\.json$/,
@@ -58,24 +67,20 @@ module.exports = {
 				loader: 'style-loader!css-loader!less-loader'
 			},
 			{
-				test: /bootstrap\/js\//,
-				loader: 'imports?jQuery=jquery'
-			},
-			{
 				test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=application/font-woff"
+				loader: "url-loader?limit=10000&mimetype=application/font-woff"
 			},
 			{
 				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=application/octet-stream"
+				loader: "url-loader?limit=10000&mimetype=application/octet-stream"
 			},
 			{
 				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "file"
+				loader: "file-loader"
 			},
 			{
 				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=image/svg+xml"
+				loader: "url-loader?limit=10000&mimetype=image/svg+xml"
 			},
 			//Images
 			{

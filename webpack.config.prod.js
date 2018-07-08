@@ -10,9 +10,7 @@ const GLOBALS = {
 module.exports = {
 	entry: "./src/index",
 	target: 'web',
-	devTool: 'source-map',
-	debug: true,
-	noInfo: false,
+	devtool: 'source-map',
 	output: {
 		path: __dirname + "/public/assets",
 		publicPath: "/assets",

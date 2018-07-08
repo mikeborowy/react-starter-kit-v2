@@ -13,4 +13,4 @@ export default class HelloWorld extends Component {
 
 HelloWorld.propTypes= {
     message: PropTypes.string
-}
+};
