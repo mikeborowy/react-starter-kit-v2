@@ -1,2 +1,2 @@
 # starter-setup
-Setup for reactJS
+Webpack 4 setup for React
