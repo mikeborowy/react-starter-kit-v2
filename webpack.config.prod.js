@@ -1,13 +1,16 @@
-let webpack = require('webpack');
-let path = require("path");
-let OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-let ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
+const path = require("path");
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const autoprefixer = require('autoprefixer');
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production')
 };
 
 module.exports = {
+	mode: 'production',//'production' | 'development' | 'none'
 	entry: "./src/index",
 	target: 'web',
 	devtool: 'source-map',
@@ -21,21 +24,30 @@ module.exports = {
 		contentBase: './public',
 		port: 3000
 	},
+	optimization: {
+		minimizer: [
+			new UglifyJsPlugin({
+				uglifyOptions: {
+					mangle: true,
+				},
+			}),
+			new OptimizeCssAssetsPlugin({
+				assetNameRegExp: /\.optimize\.css$/g,
+				cssProcessor: require('cssnano'),
+				cssProcessorOptions: {
+					discardComments: {
+						removeAll: true
+					}
+				},
+				canPrint: true
+			})
+		],
+	},
 	plugins: [
 		new webpack.DefinePlugin(GLOBALS),//defines vars avaialble to livraries
-		new ExtractTextPlugin('/styles.css', { allChunks: true}),
 		new webpack.optimize.OccurrenceOrderPlugin(), //optimizes the order files are bundled
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin(), //minifies JS files
-		new OptimizeCssAssetsPlugin({
-			assetNameRegExp: /\.optimize\.css$/g,
-			cssProcessor: require('cssnano'),
-			cssProcessorOptions: {
-				discardComments: {
-					removeAll: true
-				}
-			},
-			canPrint: true
+		new MiniCssExtractPlugin({
+			filename: 'styles.css'
 		})
 	],
 	node:{
@@ -43,7 +55,7 @@ module.exports = {
 		dns: 'empty'
 	},
 	module: {
-		loaders: [{
+		rules: [{
 				test: /\.js$/,
 				include: path.join(__dirname, 'src'), 
 				exclude: /(node_modules)/,
@@ -56,8 +68,14 @@ module.exports = {
 			},
 			{ test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery'},
 			// CSS Definitions
-			{ test: /\.css$/,  loader: ExtractTextPlugin.extract("style-loader","css-loader") },
-			{ test: /\.scss$/, loader: ExtractTextPlugin.extract('css!sass')},
+			{
+				test: /\.s?[ac]ss$/,
+				use: [
+                    MiniCssExtractPlugin.loader,
+                    { loader: 'css-loader', options: { url: false, sourceMap: false } },
+                    { loader: 'sass-loader', options: { sourceMap: false } }
+                ],
+			},
 			// Font Definitions
 			{ test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,  loader: 'url?limit=10000&mimetype=application/font-woff&name=/fonts/[name].[ext]' },
 			{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, 		loader: 'url?limit=10000&mimetype=application/vnd.ms-fontobject&name=/fonts/[name].[ext]' },

@@ -1,6 +1,6 @@
 // import express from 'express'; import path from 'path'; import open from
 // 'open';
-import colors from 'colors';
+const colors = require('colors');
 const express = require('express');
 const webpack = require('webpack');
 const path = require('path');

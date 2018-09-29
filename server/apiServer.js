@@ -1,10 +1,11 @@
 //http://localhost:3333/courses
 /*eslint-disable */
-import colors from 'colors';
-import express from'express';
-import cors from'cors';
-import open from'open';
-import bodyParser from'body-parser';
+const colors = require('colors');
+const express = require('express');
+const open = require('open');
+const cors = require( 'cors');
+
+const bodyParser = require('body-parser');
 import users from './routes/users';
 
 // const { port=3333, delay=1000 } from'minimist')(process.argv);

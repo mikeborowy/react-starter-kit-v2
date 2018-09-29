@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import HelloWorld from './HelloWorld';
+import { hot } from 'react-hot-loader';
+import HelloWorld from './helloWorld/HelloWorld';
 
-export default class App extends Component{
+class App extends Component{
 
     render(){
         return(
@@ -10,3 +11,4 @@ export default class App extends Component{
     }
 } 
 
+export default hot(module)(App);

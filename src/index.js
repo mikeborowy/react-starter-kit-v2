@@ -1,10 +1,9 @@
-// This component handles the App template used on every page. React ecosystem
-import { hot } from 'react-hot-loader';
-import React from 'react';
-import {render} from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import App from './components/App';
+import './styles/styles.scss';
 
-render(
+ReactDOM.render(
   <App/>, 
   document.getElementById('app')
-);
+  );

@@ -1,12 +1,12 @@
-import colors from 'colors';
-import express from'express';
-import webpack from'webpack';
-import path from'path';
-import webpackConfig from'../webpack.config.dev';
-import webpackMiddleware from'webpack-dev-middleware';
-import webpackHotMiddleware from'webpack-hot-middleware';
-import open from'open';
-import cors from 'cors';
+const colors = require('colors');
+const express = require('express');
+const webpack = require('webpack');
+const path = require('path');
+const webpackConfig = require('../webpack.config.dev');
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const open = require('open');
+const cors = require( 'cors');
 
 /* eslint-disable no-console */
 

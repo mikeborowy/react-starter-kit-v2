@@ -1,9 +1,9 @@
 // This script copies src/index.html into /dist/index.html
 // This is a good example of using Node and cheerio to do a simple file transformation.
 // In this case, the transformation is useful since we only use a separate css file in prod.
-import fs from 'fs'; //allows to write files
-import cheerio from 'cheerio'; //handy way to interact with VDOM using JQuery selectors
-import colors from 'colors';
+const fs = require('fs'); //allows to write files
+const cheerio  = require('cheerio'); //handy way to interact with VDOM using JQuery selectors
+const colors = require('colors');
 
 /*eslint-disable no-console */
 

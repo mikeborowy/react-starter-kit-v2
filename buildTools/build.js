@@ -1,9 +1,9 @@
 // More info on Webpack's Node API here: https://webpack.github.io/docs/node.js-api.html
 // Allowing console calls below since this is a build file.
 /*eslint-disable no-console */
-import webpack from 'webpack';
-import config from '../webpack.config.prod';
-import colors from 'colors';
+const webpack = require('webpack');
+const config = require('../webpack.config.prod');
+const colors = require('colors');
 
 process.env.NODE_ENV = 'production'; // this assures the Babel dev config (for hot reloading) doesn't apply.
 console.log('Generating minified bundle for production/distribution via Webpack. This will take a moment...'.yellow);

@@ -1,6 +1,6 @@
 //http://localhost:3333/courses
 /*eslint-disable */
-import colors from 'colors';
+const colors = require('colors');
 const express = require('express');
 const fs = require('fs')
 const url = require('url');
